@@ -1,1 +1,2 @@
-# PA-96230
+# Comandos:
+npx create-react-app projeto
