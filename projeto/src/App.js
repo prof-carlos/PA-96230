@@ -1,47 +1,33 @@
+// projeto\src\App.js
+
 import React, { useState } from 'react';
 import './App.css';
+import logo from '../src/assets/images/logo_senai.png';
+
+import AdicionarProduto from './components/AdicionarProduto';
+import ListaDeProdutos from './components/ListaDeProdutos';
 
 function App() {
-  // Cria uma variável e um setter (forma de adicionar dados) para o usuário.
-  const [usuario, setUsuario] = useState('');
+  const [produtos, setProdutos] = useState(['Mouse', 'Teclado', 'Monitor']);
 
-  // Cria uma variável e um setter (forma de adicionar dados) para os usuários.
-  // Inicializa com uma lista de usuários pré-definida.
-  const [usuarios, setUsuarios] = useState(['Arroz', 'Feijão', 'Lentilha']);
+  const adicionarUsuario = (nome) => {
+    const produto = nome.trim();
 
-  // Função para verificar se o usuário já existe e adicioná-lo à lista.
-  const adicionarUsuario = () => {
-
-    // Se o usuário já existir, exibe um alerta.
-    if (usuarios.includes(usuario)) {
-      alert('Usuário já existe!');
+    if (produtos.includes(produto)) {
+      alert('O produto já existe!');
       return;
-    }
-   
-    // Se não existir, adiciona o usuário à lista e limpa o campo de entrada.
-    // Adiciona todos os usuários já existentes e o novo usuário.
-    setUsuarios([...usuarios, usuario]);
-    setUsuario('');
+    }   
+    setProdutos([...produtos, produto]);
   };
 
   return (
     <div className="App">
-      <h1>Adicionar produtos</h1>
-      <input
-        type="text"
-        value={usuario}
-        onChange={(e) => setUsuario(e.target.value)}
-        placeholder="Digite o nome do produto"
-      />
-      <button onClick={adicionarUsuario}>Adicionar</button>
-
+      <img src={logo} className="logo" alt="Logo do Senai" />
+      <h1>Produtos</h1>
+      <AdicionarProduto onAdd={adicionarUsuario} />
       <hr />
       <h2>Lista de produtos</h2>
-      <ol>
-        {usuarios.map((user, index) => (
-          <li key={index}>{user}</li>
-        ))}
-      </ol>
+      <ListaDeProdutos itens={produtos} />
     </div>
   );
 }
